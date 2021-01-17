@@ -20,14 +20,14 @@ apiTokenRouter.post('/login', (req, res) => {
 apiTokenRouter.post('/token', (req, res) => {
     const username = req.body.username
     const jwt = new JWTGenerator()
-    const sesionID = uuidv4()
+    const sessionID = uuidv4()
     const token = jwt.generate({
         username: username,
-        id: sesionID
+        id: sessionID
     })
     res.cookie('username', username, {expires: new Date(Date.now() + 3 * 3600)})
     res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600)})
-    res.cookie('sessionID', sesionID, {expires: new Date(Date.now() + 3600)})
+    res.cookie('sessionID', sessionID, {expires: new Date(Date.now() + 3600)})
     res.status(201)
     res.send()
 })
