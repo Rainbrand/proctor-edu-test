@@ -8,7 +8,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.12"
+    "mongoose": "^5.11.12",
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "run": "node server.js",
