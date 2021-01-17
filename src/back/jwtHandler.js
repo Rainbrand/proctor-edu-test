@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 class JWTGenerator{
     constructor(secretKey = 'secret', algorithm = 'HS256') {
@@ -7,8 +7,8 @@ class JWTGenerator{
     }
 
     generate(payload){
-        return jwt.sign(payload, this.secretKey, this.algorithm, { expiresIn: '1h' })
+        return jwt.sign({payload}, this.secretKey, {algorithm: this.algorithm, expiresIn: '1h'})
     }
 }
 
-module.exports = JWTGenerator
+export default JWTGenerator
