@@ -1,11 +1,15 @@
 const loginForm = document.querySelector(".loginForm")
 
-loginForm.addEventListener("submit", event => {
-    const form = document.forms["loginForm"];
-    const username = form.username.value
-    const password = form.password.value
-    fetch('https://localhost:8080/api/token', {
+loginForm.addEventListener("submit",  async event => {
+    const username = document.querySelector(".loginForm__loginInput").value
+    const password = document.querySelector(".loginForm__passwordInput").value
+    await fetch('http://localhost:8080/api/login', {
         method: 'POST',
-        username: username
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username
+        })
     })
 })

@@ -7,7 +7,7 @@ class JWTGenerator{
     }
 
     generate(payload){
-        return jwt.sign({payload}, this.secretKey, {algorithm: this.algorithm, expiresIn: '1h'})
+        return jwt.sign({payload}, this.secretKey, {algorithm: this.algorithm, expiresIn: '5h'})
     }
 }
 
