@@ -11,7 +11,6 @@ apiTokenRouter.post('/login', (req, res) => {
     const token = jwt.generate({
         username: username
     })
-    res.cookie('username', username, {expires: new Date(Date.now() + 3 * 3600000)})
     res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
     res.status(201)
     res.send()
@@ -25,7 +24,6 @@ apiTokenRouter.post('/token', (req, res) => {
         username: username,
         id: sessionID
     })
-    res.cookie('username', username, {expires: new Date(Date.now() + 3 * 3600000)})
     res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
     res.cookie('sessionID', sessionID)
     res.status(201)
