@@ -27,7 +27,7 @@ apiTokenRouter.post('/token', (req, res) => {
     })
     res.cookie('username', username, {expires: new Date(Date.now() + 3 * 3600000)})
     res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
-    res.cookie('sessionID', sessionID, {expires: new Date(Date.now() + 3600000)})
+    res.cookie('sessionID', sessionID)
     res.status(201)
     res.send()
 })
