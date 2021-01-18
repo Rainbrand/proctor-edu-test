@@ -2,7 +2,7 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import * as path from "path"
 import mongoose from "mongoose"
-import apiTokenRouter from "./src/back/routers/apiTokenRouter.js"
+import apiSessionTokenRouter from "./src/back/routers/apiSessionTokenRouter.js"
 import apiRegisterRouter from './src/back/routers/apiRegisterRouter.js'
 
 const app = express()
@@ -34,7 +34,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.resolve('./src/front/register.html'))
 })
 
-app.use('/api', apiTokenRouter)
+app.use('/api', apiSessionTokenRouter)
 app.use('/api', apiRegisterRouter)
 
 app.get('/', (req, res) => {
