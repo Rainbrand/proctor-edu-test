@@ -1,4 +1,5 @@
 import express from "express"
+import cookieParser from "cookie-parser"
 import * as path from "path"
 import mongoose from "mongoose"
 import apiTokenRouter from "./src/back/routers/apiTokenRouter.js"
@@ -13,17 +14,14 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+app.use(cookieParser());
+
 const mongoURI = "mongodb://localhost"
 
 mongoose.connect(mongoURI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
-
-
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve('./src/front/index.html'))
 })
 
 app.get('/login', (req, res) => {
@@ -35,5 +33,12 @@ app.get('/register', (req, res) => {
 })
 
 app.use('/api', apiTokenRouter)
+
+app.get('/', (req, res) => {
+    if (!req.cookies.token) {   //redirects to login page if user is not authorised
+        res.redirect('/login')
+    }
+    res.sendFile(path.resolve('./src/front/main.html'))
+})
 
 app.listen(port, () => {console.log(`Server is started and listening on port ${port}`)})
