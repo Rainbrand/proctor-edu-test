@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import JWTGenerator from "../jwtHandler.js"
 import userModel from "../../db_models/userModel.js";
 
-const apiTokenRouter = express.Router()
+const apiLoginRouter = express.Router()
 
 const getToken = payload => {
     const jwt = new JWTGenerator()
@@ -12,7 +12,7 @@ const getToken = payload => {
     })
 }
 
-apiTokenRouter.post('/login', async (req, res) => {
+apiLoginRouter.post('/login', async (req, res) => {
     const candidate = await userModel.findOne({username: req.body.username})
     if (candidate){
         try{
@@ -32,3 +32,5 @@ apiTokenRouter.post('/login', async (req, res) => {
         res.status(401).json("No such user")
     }
 })
+
+export default apiLoginRouter

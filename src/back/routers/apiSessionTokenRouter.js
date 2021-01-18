@@ -14,7 +14,7 @@ const getToken = payload => {
 apiSessionTokenRouter.post('/sesstoken', (req, res) => {
     const sessionID = uuidv4()
     const token = getToken({username: req.body.username, id: sessionID})
-    res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
+    res.cookie('token', `Bearer ${token}`, {expires: new Date(Date.now() + 3 * 3600000)})
     res.cookie('sessionID', sessionID)
     res.status(201)
     res.send()

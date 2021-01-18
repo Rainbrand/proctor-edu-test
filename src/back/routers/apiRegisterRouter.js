@@ -3,9 +3,9 @@ import bcrypt from 'bcryptjs';
 import JWTGenerator from "../jwtHandler.js"
 import User from "../../db_models/userModel.js";
 
-const apiTokenRouter = express.Router()
+const apiRegisterRouter = express.Router()
 
-apiTokenRouter.post('/register', async (req, res) => {
+apiRegisterRouter.post('/register', async (req, res) => {
     const username = req.body.username
     const nickname = req.body.nickname
     const candidate = await User.findOne({username: username})
@@ -37,4 +37,4 @@ apiTokenRouter.post('/register', async (req, res) => {
     }
 })
 
-export default apiTokenRouter
+export default apiRegisterRouter
