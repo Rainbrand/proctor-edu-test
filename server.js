@@ -6,6 +6,7 @@ import passport from "passport"
 import apiLoginRouter from "./src/back/routers/apiLoginRouter.js"
 import apiRegisterRouter from './src/back/routers/apiRegisterRouter.js'
 import apiSessionTokenRouter from "./src/back/routers/apiSessionTokenRouter.js";
+import apiQuestionsRouter from "./src/back/routers/apiQuiestionsRouter.js";
 import pass from "./src/middleware/passport.js"
 
 const app = express()
@@ -41,6 +42,7 @@ app.get('/register', (req, res) => {
 app.use('/api', apiLoginRouter)
 app.use('/api', apiRegisterRouter)
 app.use('/api', apiSessionTokenRouter)
+app.use('/api', apiQuestionsRouter)
 
 app.get('/', passport.authenticate('jwt', {session: false, failureRedirect: '/login'}),
     (req, res) => {
