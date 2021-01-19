@@ -17,7 +17,7 @@ apiLoginRouter.post('/login', async (req, res) => {
             const passwordResult = await bcrypt.compare(req.body.password, candidate.password)
             if (passwordResult){
                 const token = getToken({username: req.body.username, nickname: candidate.nickname})
-                res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
+                res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
                     .status(200).redirect('/')
             } else {
                 res.status(401).json("Password is wrong")

@@ -15,11 +15,7 @@ const userSchema = new Schema({
     },
     role: {
         type: String
-    },
-    courses: [{
-        ref: "courses",
-        type: Schema.Types.ObjectId
-    }]
+    }
 })
 
 export default mongoose.model('users', userSchema)
