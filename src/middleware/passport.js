@@ -19,7 +19,7 @@ const options = {
 export default passport => {
     passport.use(new Strategy(options, async (payload, done) => {
         try {
-            const user = await userModel.findOne({username: payload.payload.payload.username}).select("username nickname")
+            const user = await userModel.findOne({username: payload.username}).select("username nickname")
             if (user){
                 console.log("User found")
                 done(null, user)

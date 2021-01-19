@@ -7,9 +7,7 @@ const apiLoginRouter = express.Router()
 
 const getToken = payload => {
     const jwt = new JWTGenerator()
-    return jwt.generate({
-        payload
-    })
+    return jwt.generate(payload)
 }
 
 apiLoginRouter.post('/login', async (req, res) => {
