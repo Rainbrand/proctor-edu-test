@@ -20,8 +20,7 @@ apiLoginRouter.post('/login', async (req, res) => {
             if (passwordResult){
                 const token = getToken({username: req.body.username, nickname: candidate.nickname})
                 res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
-                res.status(200)
-                res.send()
+                    .status(200).redirect('/')
             } else {
                 res.status(401).json("Password is wrong")
             }

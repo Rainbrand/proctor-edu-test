@@ -29,8 +29,7 @@ apiRegisterRouter.post('/register', async (req, res) => {
                 nickname: nickname
             })
             res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
-            res.status(201).json(newUser)
-            res.send()
+                .status(201)
         } catch (e){
             console.log(e)
         }
