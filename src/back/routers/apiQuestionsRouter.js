@@ -18,7 +18,7 @@ apiQuestionsRouter.post('/questions', passport.authenticate('jwt', {session: fal
                 }
             }
         }])
-        res.status(200).json(questions)
+        res.status(200).json(questions[0].questions)
     } catch (e) {
         res.status(500).json(e)
         console.log(e)
