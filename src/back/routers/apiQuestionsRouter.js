@@ -4,6 +4,13 @@ import Course from "../../db_models/courseModel.js";
 
 const apiQuestionsRouter = express.Router()
 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 apiQuestionsRouter.post('/questions', passport.authenticate('jwt', {session: false}), async (req, res) => {
     try{
         const questions = await Course.aggregate([{
@@ -18,7 +25,7 @@ apiQuestionsRouter.post('/questions', passport.authenticate('jwt', {session: fal
                 }
             }
         }])
-        res.status(200).json(questions[0].questions)
+        res.status(200).json(shuffle(questions[0].questions))
     } catch (e) {
         res.status(500).json(e)
         console.log(e)
