@@ -17,11 +17,11 @@ const extractProctorLogins = array => {
 apiSessionTokenRouter.post('/sesstoken', passport.authenticate('jwt', {session: false}), async (req, res) => {
     const sessionID = uuidv4()
     const jwt = new JWTGenerator()
-    const info = req.cookies.token
-    const decoded = jwt.verify(info)
+    const token = req.cookies.token
+    const decoded = jwt.verify(token)
     const proctorsFromDatabase = await User.find({role: "proctor"},{'_id': false}).select("username")
     const extractedProctorUsernames = extractProctorLogins(proctorsFromDatabase)
-    const token = jwt.generate({
+    const generatedToken = jwt.generate({
         username: decoded.username,
         nickname: decoded.nickname,
         template: "default",
