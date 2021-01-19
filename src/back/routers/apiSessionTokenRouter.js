@@ -31,8 +31,8 @@ apiSessionTokenRouter.post('/sesstoken', passport.authenticate('jwt', {session: 
         tags: [decoded.nickname],
         api: `http://localhost:8080/api/report/${sessionID}`
     })
-    res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000)})
-        .cookie('sessionID', sessionID).status(200).json(token)
+    res.cookie('token', generatedToken, {expires: new Date(Date.now() + 3 * 3600000)})
+        .cookie('sessionID', sessionID).status(200).json(generatedToken)
 })
 
 export default apiSessionTokenRouter
