@@ -17,6 +17,10 @@ class TestHandler {
         return this._questions[this._currentQuestionIndex + 1]
     }
 
+    peekPreviousQuestion(){
+        return this._questions[this._currentQuestionIndex - 1]
+    }
+
     getPreviousQuestion(){
         if (this._currentQuestionIndex - 1 < 0) return this._questions[0]
         return this._questions[--this._currentQuestionIndex]

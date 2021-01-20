@@ -1,6 +1,7 @@
 const startTestButton = document.querySelector(".startTestButton")
 const testNextFormButton = document.querySelector(".testForm__nextButton")
 const testBackFormButton = document.querySelector(".testForm__backButton")
+const testFinishFormButton = document.querySelector(".testForm__finishButton")
 
 const questionsHandler = new TestHandler()
 
@@ -31,46 +32,59 @@ startTestButton.addEventListener("click", async event => {
     const questions = await fetch('http://localhost:8080/api/questions', {
         method: "POST"
     }).then(result => result.json())
-    const supervisor = new Supervisor({
-        url: 'https://demo.proctoring.online'
-    })
-    await supervisor.init({
-        provider: 'jwt',
-        token: await fetch('http://localhost:8080/api/sesstoken', {
-            method: "POST"
-        }).then(result => result.json())
-    }).then(function() {
-        switchToTest()
-        questionsHandler.setQuestions(questions)
-        setLabelText(questionsHandler.getNextQuestion())
-        return supervisor.start();
-    }).catch(function(err) {
-        alert(err.toString());
-    });
+    // const supervisor = new Supervisor({
+    //     url: 'https://demo.proctoring.online'
+    // })
+    // await supervisor.init({
+    //     provider: 'jwt',
+    //     token: await fetch('http://localhost:8080/api/sesstoken', {
+    //         method: "POST"
+    //     }).then(result => result.json())
+    // }).then(function() {
+    //     switchToTest()
+    //     questionsHandler.setQuestions(questions)
+    //     setLabelText(questionsHandler.getNextQuestion())
+    //     return supervisor.start();
+    // }).catch(function(err) {
+    //     alert(err.toString());
+    // });
+    switchToTest()
+    questionsHandler.setQuestions(questions)
+    setLabelText(questionsHandler.getNextQuestion())
 })
 
 testBackFormButton.addEventListener("click", async event => {
     event.preventDefault()
     let previousQuestion = questionsHandler.getPreviousQuestion()
-    let nextQuestion = questionsHandler.peekNextQuestion()
-    if (nextQuestion !== undefined){
-        testNextFormButton.innerHTML = "Next"
+    let peekedQuestion = questionsHandler.peekPreviousQuestion()
+    if (previousQuestion !== undefined || testNextFormButton.disabled){
+        testNextFormButton.disabled = false
+    }
+    if (peekedQuestion === undefined){
+        testBackFormButton.disabled = true
     }
     setLabelText(previousQuestion)
 })
 
 testNextFormButton.addEventListener("click", async event => {
     event.preventDefault()
-    let currentQuestion = questionsHandler.getNextQuestion()
-    let nextQuestion = questionsHandler.peekNextQuestion()
-    if (currentQuestion === undefined){
-        switchToFinish()
-        return
+    let nextQuestion = questionsHandler.getNextQuestion()
+    let peekedQuestion = questionsHandler.peekNextQuestion()
+    // if (nextQuestion === undefined){
+    //     switchToFinish()
+    //     return
+    // }
+    if (peekedQuestion === undefined){
+        testNextFormButton.disabled = true
     }
-    if (nextQuestion === undefined){
-        testNextFormButton.innerHTML = "Finish"
+    if (nextQuestion !== undefined || testBackFormButton.disabled){
+        testBackFormButton.disabled = false
     }
-    setLabelText(currentQuestion)
+    setLabelText(nextQuestion)
+})
+
+testFinishFormButton.addEventListener("click", async event => {
+    event.preventDefault()
 })
 
 
