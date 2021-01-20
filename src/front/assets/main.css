@@ -1,0 +1,53 @@
+*{
+    margin: 0;
+    padding: 0
+}
+
+.mainHeader{
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.header__text{
+    margin-left: 50px;
+}
+
+.textInfo{
+    margin: 50px;
+}
+
+.textInfo__header{
+    margin: 50px 0;
+}
+
+.textInfo__mainText{
+    margin: 50px 0;
+}
+
+.startTestButton{
+    margin: 0 50px;
+}
+.testForm{
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    border: 1px solid black;
+}
+
+.testForm__question{
+    font-weight: bold;
+    font-size: larger;
+    margin-bottom: 10px;
+}
+
+.testFrom__row{
+    margin: 5px;
+}
+
+.testForm__button{
+    margin: 5px;
+}
+

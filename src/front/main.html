@@ -3,23 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>ProctorEdu Test</title>
+    <link rel="stylesheet" href="./assets/main.css">
+    <script defer src="./assets/TestHandler.js"></script>
     <script defer src="./assets/main.js"></script>
 </head>
 <body>
-    <header>
-        <h1>
+    <header class="mainHeader">
+        <h1 class="header__text">
             Demo test with proctoring
         </h1>
-        <br/>
     </header>
     <main>
-        <h2>Welcome</h2>
-        <div class="introductoryText">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit minus nobis perspiciatis quam rerum! Adipisci cupiditate dicta, dolor maxime perferendis tempore totam voluptate. Consequatur debitis doloremque mollitia repellat temporibus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolorem harum illo molestiae nemo. Alias iste laborum temporibus unde veniam. Earum esse labore omnis, optio possimus quisquam sed tempore voluptas?
+        <div class="textInfo">
+            <h2 class="textInfo__header">Welcome</h2>
+            <div class="textInfo__mainText">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit minus nobis perspiciatis quam rerum! Adipisci cupiditate dicta, dolor maxime perferendis tempore totam voluptate. Consequatur debitis doloremque mollitia repellat temporibus voluptatem. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur dolorem harum illo molestiae nemo. Alias iste laborum temporibus unde veniam. Earum esse labore omnis, optio possimus quisquam sed tempore voluptas?
+            </div>
         </div>
         <button class="startTestButton">
             Start
         </button>
+        <form class="testForm" style="display: none">
+            <div class="testForm__question"></div>
+            <div class="testForm__row">
+                <label class="testForm__inputLabel--1"></label>
+                <input class="testForm__input" name="answer" value="1" type="radio">
+            </div>
+            <div class="testFrom__row">
+                <label class="testForm__inputLabel--2"></label>
+                <input class="testForm__input" name="answer" value="2" type="radio">
+            </div>
+            <div class="testFrom__row">
+                <label class="testForm__inputLabel--3"></label>
+                <input class="testForm__input" name="answer" value="3" type="radio">
+            </div>
+            <div class="testForm__row">
+                <label class="testForm__inputLabel--4"></label>
+                <input class="testForm__input" name="answer" value="4" type="radio">
+            </div>
+            <div class="testForm__row">
+                <button class="testForm__backButton testForm__button" type="submit">
+                    Back
+                </button>
+                <button class="testForm__nextButton testForm__button" type="submit">
+                    Next
+                </button>
+            </div>
+        </form>
     </main>
 </body>
 </html>
