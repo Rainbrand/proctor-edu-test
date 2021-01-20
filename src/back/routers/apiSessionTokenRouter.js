@@ -19,21 +19,25 @@ apiSessionTokenRouter.post('/sesstoken', passport.authenticate('jwt', {session: 
     const jwt = new JWTGenerator()
     const token = req.cookies.token
     const decoded = jwt.verify(token)
-    const proctorsFromDatabase = await User.find({role: "proctor"},{'_id': false}).select("username")
-    const extractedProctorUsernames = extractProctorLogins(proctorsFromDatabase)
-    const generatedToken = jwt.generate({
-        username: decoded.username,
-        nickname: decoded.nickname,
-        template: "default",
-        id: sessionID,
-        subject: "Test1",
-        invites: extractedProctorUsernames,
-        tags: [decoded.nickname],
-        api: `http://localhost:8080/api/report/${sessionID}`,
-        secure: false
-    }, '20min')
-    res.cookie('token', generatedToken, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
-        .cookie('sessionID', sessionID).status(200).json(generatedToken)
+    if (decoded.id) {
+        res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
+            .status(200).json(token)
+    } else {
+        const proctorsFromDatabase = await User.find({role: "proctor"},{'_id': false}).select("username")
+        const extractedProctorUsernames = extractProctorLogins(proctorsFromDatabase)
+        const generatedToken = jwt.generate({
+            username: decoded.username,
+            nickname: decoded.nickname,
+            template: "default",
+            id: sessionID,
+            subject: "Test1",
+            invites: extractedProctorUsernames,
+            tags: [decoded.nickname],
+            api: `http://localhost:8080/api/report/${sessionID}`
+        }, '1h')
+        res.cookie('token', generatedToken, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
+            .status(200).json(generatedToken)
+    }
 })
 
 export default apiSessionTokenRouter
