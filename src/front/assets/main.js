@@ -28,15 +28,25 @@ const switchToFinish = () => {
 
 startTestButton.addEventListener("click", async event => {
     event.preventDefault()
-    const sessionToken = await fetch('http://localhost:8080/api/sesstoken', {
-        method: "POST"
-    }).then(result => result.json())
     const questions = await fetch('http://localhost:8080/api/questions', {
         method: "POST"
     }).then(result => result.json())
-    questionsHandler.setQuestions(questions)
-    switchToTest()
-    setLabelText(questionsHandler.getNextQuestion())
+    const supervisor = new Supervisor({
+        url: 'https://demo.proctoring.online'
+    })
+    await supervisor.init({
+        provider: 'jwt',
+        token: await fetch('http://localhost:8080/api/sesstoken', {
+            method: "POST"
+        }).then(result => result.json())
+    }).then(function() {
+        switchToTest()
+        questionsHandler.setQuestions(questions)
+        setLabelText(questionsHandler.getNextQuestion())
+        return supervisor.start();
+    }).catch(function(err) {
+        alert(err.toString());
+    });
 })
 
 testBackFormButton.addEventListener("click", async event => {
@@ -59,8 +69,8 @@ testNextFormButton.addEventListener("click", async event => {
     }
     if (nextQuestion === undefined){
         testNextFormButton.innerHTML = "Finish"
-
     }
     setLabelText(currentQuestion)
 })
+
 
