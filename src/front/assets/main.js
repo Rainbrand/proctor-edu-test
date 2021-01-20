@@ -4,6 +4,9 @@ const testBackFormButton = document.querySelector(".testForm__backButton")
 const testFinishFormButton = document.querySelector(".testForm__finishButton")
 
 const questionsHandler = new TestHandler()
+const supervisor = new Supervisor({
+    url: 'https://demo.proctoring.online'
+})
 
 const setLabelText = question => {
     document.querySelector(".testForm__question").innerHTML = question.text
@@ -32,25 +35,19 @@ startTestButton.addEventListener("click", async event => {
     const questions = await fetch('http://localhost:8080/api/questions', {
         method: "POST"
     }).then(result => result.json())
-    // const supervisor = new Supervisor({
-    //     url: 'https://demo.proctoring.online'
-    // })
-    // await supervisor.init({
-    //     provider: 'jwt',
-    //     token: await fetch('http://localhost:8080/api/sesstoken', {
-    //         method: "POST"
-    //     }).then(result => result.json())
-    // }).then(function() {
-    //     switchToTest()
-    //     questionsHandler.setQuestions(questions)
-    //     setLabelText(questionsHandler.getNextQuestion())
-    //     return supervisor.start();
-    // }).catch(function(err) {
-    //     alert(err.toString());
-    // });
-    switchToTest()
-    questionsHandler.setQuestions(questions)
-    setLabelText(questionsHandler.getNextQuestion())
+    await supervisor.init({
+        provider: 'jwt',
+        token: await fetch('http://localhost:8080/api/sesstoken', {
+            method: "POST"
+        }).then(result => result.json())
+    }).then(function() {
+        switchToTest()
+        questionsHandler.setQuestions(questions)
+        setLabelText(questionsHandler.getNextQuestion())
+        return supervisor.start();
+    }).catch(function(err) {
+        alert(err.toString());
+    });
 })
 
 testBackFormButton.addEventListener("click", async event => {
@@ -70,10 +67,6 @@ testNextFormButton.addEventListener("click", async event => {
     event.preventDefault()
     let nextQuestion = questionsHandler.getNextQuestion()
     let peekedQuestion = questionsHandler.peekNextQuestion()
-    // if (nextQuestion === undefined){
-    //     switchToFinish()
-    //     return
-    // }
     if (peekedQuestion === undefined){
         testNextFormButton.disabled = true
     }
@@ -85,6 +78,14 @@ testNextFormButton.addEventListener("click", async event => {
 
 testFinishFormButton.addEventListener("click", async event => {
     event.preventDefault()
+    try{
+        await supervisor.stop()
+        await supervisor.logout()
+        switchToFinish()
+    } catch (e) {
+        alert("Internal server error")
+        console.log(e)
+    }
 })
 
 
