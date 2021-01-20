@@ -6,8 +6,8 @@ import passport from "passport"
 import apiLoginRouter from "./src/back/routers/apiLoginRouter.js"
 import apiRegisterRouter from './src/back/routers/apiRegisterRouter.js'
 import apiSessionTokenRouter from "./src/back/routers/apiSessionTokenRouter.js";
-import apiQuestionsRouter from "./src/back/routers/apiQuiestionsRouter.js";
-import pass from "./src/middleware/passport.js"
+import apiQuestionsRouter from "./src/back/routers/apiQuestionsRouter.js";
+import userTokenAuth from "./src/middleware/passport.js"
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 }))
 app.use(cookieParser());
 app.use(passport.initialize())
-pass(passport)
+userTokenAuth(passport)
 
 const mongoURI = `mongodb://proctorAdmin:password@localhost:${mongoosePort}/proctorEdu`
 

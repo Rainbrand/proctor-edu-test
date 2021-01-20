@@ -16,7 +16,7 @@ const options = {
     secretOrKey: "secret"
 }
 
-export default passport => {
+const userTokenAuth = passport => {
     passport.use(new Strategy(options, async (payload, done) => {
         try {
             const user = await userModel.findOne({username: payload.username}).select("username nickname")
@@ -32,3 +32,5 @@ export default passport => {
         }
     }))
 }
+
+export default userTokenAuth
