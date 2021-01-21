@@ -33,12 +33,12 @@ const switchToFinish = () => {
 startTestButton.addEventListener("click", async event => {
     event.preventDefault()
     try{
-        const questions = await fetch('http://localhost:8080/api/questions', {
+        const questions = await fetch('https://proctor-edu-test.herokuapp.com/api/questions', {
             method: "POST"
         }).then(result => result.json())
         await supervisor.init({
             provider: 'jwt',
-            token: await fetch('http://localhost:8080/api/sesstoken', {
+            token: await fetch('https://proctor-edu-test.herokuapp.com/api/sesstoken', {
                 method: "POST"
             }).then(result => result.json())
         })
