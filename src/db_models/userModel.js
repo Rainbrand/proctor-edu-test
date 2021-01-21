@@ -2,9 +2,6 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
-/**
- * User schema
- */
 const userSchema = new Schema({
     username: {
         type: String,

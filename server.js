@@ -4,7 +4,7 @@ import * as path from "path"
 import mongoose from "mongoose"
 import passport from "passport"
 import userTokenAuth from "./src/middleware/passport.js"
-import apiRouter from "./src/back/routers/api.js";
+import apiRouter from "./src/back/routers/apiRouter.js";
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -26,7 +26,7 @@ mongoose.connect(mongoURI, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true
-}).then(r => console.log("Mongoose connected"))
+}).then(() => console.log("Mongoose connected"))
 
 app.get('/login', (req, res) => {
     res.sendFile(path.resolve('./src/front/login.html'))
