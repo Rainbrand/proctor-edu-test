@@ -13,15 +13,15 @@ apiRegisterRouter.post('/register', async (req, res) => {
     if (candidate){
         res.status(409).json("This username is already taken")
     } else {
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(req.body.password, salt)
-        const newUser = new User({
-            username: username,
-            nickname: nickname,
-            password: hashedPassword,
-            role: role
-        })
         try {
+            const salt = await bcrypt.genSalt(10);
+            const hashedPassword = await bcrypt.hash(req.body.password, salt)
+            const newUser = new User({
+                username: username,
+                nickname: nickname,
+                password: hashedPassword,
+                role: role
+            })
             await newUser.save()
             console.log(`New user with username ${username} is created`)
             const jwt = new JWTGenerator()
@@ -30,8 +30,9 @@ apiRegisterRouter.post('/register', async (req, res) => {
                 nickname: nickname
             })
             res.cookie('token', token, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
-                .status(201)
+                .status(201).redirect('/')
         } catch (e){
+            res.status(500).json('Internal server error')
             console.log(e)
         }
     }
