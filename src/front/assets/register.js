@@ -5,7 +5,7 @@ registerForm.addEventListener("submit", async event => {
     const username = document.querySelector(".registerForm__usernameInput").value
     const nickname = document.querySelector(".registerForm__nicknameInput").value
     const password = document.querySelector(".registerForm__passwordInput").value
-    await fetch('https://proctor-edu-test.herokuapp.com/api/register', {
+    await fetch('http://localhost:8080/api/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
