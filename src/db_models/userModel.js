@@ -16,6 +16,6 @@ const userSchema = new Schema({
     role: {
         type: String
     }
-})
+}, { collection : 'users' })
 
 export default mongoose.model('users', userSchema)
