@@ -33,7 +33,7 @@ apiSessionTokenRouter.post('/sesstoken', passport.authenticate('jwt', {session: 
             subject: "Test1",
             invites: extractedProctorUsernames,
             tags: [decoded.nickname],
-            api: `http://localhost:8080/api/report/${sessionID}`
+            api: `http://localhost:8080/api/report/`    //Change localhost and port on production
         }, '1h')
         res.cookie('token', generatedToken, {expires: new Date(Date.now() + 3 * 3600000), httpOnly: true})
             .status(200).json(generatedToken)
