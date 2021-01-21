@@ -8,6 +8,7 @@ const apiRegisterRouter = express.Router()
 apiRegisterRouter.post('/register', async (req, res) => {
     const username = req.body.username
     const nickname = req.body.nickname
+    const role = req.body.role
     const candidate = await User.findOne({username: username})
     if (candidate){
         res.status(409).json("This username is already taken")
@@ -18,7 +19,7 @@ apiRegisterRouter.post('/register', async (req, res) => {
             username: username,
             nickname: nickname,
             password: hashedPassword,
-            role: "student"
+            role: role
         })
         try {
             await newUser.save()

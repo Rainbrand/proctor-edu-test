@@ -5,6 +5,7 @@ registerForm.addEventListener("submit", async event => {
     const username = document.querySelector(".registerForm__usernameInput").value
     const nickname = document.querySelector(".registerForm__nicknameInput").value
     const password = document.querySelector(".registerForm__passwordInput").value
+    const role = document.querySelector(".registerForm__selectInput").value
     await fetch('http://localhost:8080/api/register', {
         method: 'POST',
         headers: {
@@ -13,7 +14,8 @@ registerForm.addEventListener("submit", async event => {
         body: JSON.stringify({
             username: username,
             nickname: nickname,
-            password: password
+            password: password,
+            role: role
         })
     })
 })
