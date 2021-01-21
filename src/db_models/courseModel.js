@@ -12,6 +12,6 @@ const courseSchema = new Schema({
             }
         ]
     }],
-})
+}, { collection : 'course' })
 
 export default mongoose.model('course', courseSchema)

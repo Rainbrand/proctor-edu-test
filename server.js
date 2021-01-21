@@ -3,12 +3,8 @@ import cookieParser from "cookie-parser"
 import * as path from "path"
 import mongoose from "mongoose"
 import passport from "passport"
-import apiLoginRouter from "./src/back/routers/apiLoginRouter.js"
-import apiRegisterRouter from './src/back/routers/apiRegisterRouter.js'
-import apiSessionTokenRouter from "./src/back/routers/apiSessionTokenRouter.js";
-import apiQuestionsRouter from "./src/back/routers/apiQuestionsRouter.js";
-import apiReportRouter from "./src/back/routers/apiReportRouter.js"
 import userTokenAuth from "./src/middleware/passport.js"
+import apiRouter from "./src/back/routers/api.js";
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -40,11 +36,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.resolve('./src/front/register.html'))
 })
 
-app.use('/api', apiLoginRouter)
-app.use('/api', apiRegisterRouter)
-app.use('/api', apiSessionTokenRouter)
-app.use('/api', apiQuestionsRouter)
-app.use('/api', apiReportRouter)
+app.use('/api', apiRouter)
 
 app.get('/', passport.authenticate('jwt', {session: false, failureRedirect: '/login'}),
     (req, res) => {
