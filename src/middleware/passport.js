@@ -2,6 +2,12 @@ import jwt from 'passport-jwt'
 const {Strategy, ExtractJwt} = jwt
 import userModel from "../db_models/userModel.js";
 
+/**
+ * Function handles extraction token from cookie if existing
+ *
+ * @param req - request from client
+ * @returns {string} token - token extracted from cookie
+ */
 const cookieExtractor = await function(req) {
     let token = null;
     if (req && req.cookies)
@@ -11,11 +17,21 @@ const cookieExtractor = await function(req) {
     return token;
 };
 
+/**
+ * Constant describes options for passport authenticator
+ * @constant
+ * @type {{jwtFromRequest, secretOrKey: string}}
+ */
 const options = {
     jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
     secretOrKey: "secret"
 }
 
+/**
+ * Functions handles authentication
+ *
+ * @param passport - Instance of passport.js
+ */
 const userTokenAuth = passport => {
     passport.use(new Strategy(options, async (payload, done) => {
         try {

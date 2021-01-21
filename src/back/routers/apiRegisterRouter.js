@@ -3,8 +3,21 @@ import bcrypt from 'bcryptjs';
 import JWTGenerator from "../jwtHandler.js"
 import User from "../../db_models/userModel.js";
 
+/**
+ * Express router instance.
+ * @type {object}
+ * @const
+ */
 const apiRegisterRouter = express.Router()
 
+/**
+ * Route serving registration. Saves new user to db if one not registered or returns info that user is already registered.
+ *
+ * @name post/api/register
+ * @function
+ * @param {string} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 apiRegisterRouter.post('/register', async (req, res) => {
     const username = req.body.username
     const nickname = req.body.nickname

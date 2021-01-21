@@ -2,6 +2,9 @@ import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema
 
+/**
+ * Session Result schema
+ */
 const sessionResultSchema = new Schema({
     id: String,
     status: String,

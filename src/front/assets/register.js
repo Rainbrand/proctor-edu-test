@@ -1,5 +1,16 @@
+/**
+ * An HTMLElement of login form
+ * @type {Element}
+ * @const
+ */
 const registerForm = document.querySelector(".registerForm")
 
+/**
+ * Listens to submit event
+ *
+ * @type {HTMLElement} - Register form.
+ * @listens registerForm#submit - Submit event of form
+ */
 registerForm.addEventListener("submit", async event => {
     event.preventDefault()
     const username = document.querySelector(".registerForm__usernameInput").value

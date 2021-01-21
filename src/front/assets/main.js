@@ -1,13 +1,51 @@
+/**
+ * An HTMLElement of 'start' test button
+ * @type {Element}
+ * @const
+ */
 const startTestButton = document.querySelector(".startTestButton")
+
+/**
+ * An HTMLElement of 'next' button of test form
+ * @type {Element}
+ * @const
+ */
 const testNextFormButton = document.querySelector(".testForm__nextButton")
+
+/**
+ * An HTMLElement of 'back' button of test form
+ * @type {Element}
+ * @const
+ */
 const testBackFormButton = document.querySelector(".testForm__backButton")
+
+/**
+ * An HTMLElement of 'finish' test button
+ * @type {Element}
+ * @const
+ */
 const testFinishFormButton = document.querySelector(".testForm__finishButton")
 
-const questionsHandler = new TestHandler()
+/**
+ * Instance of QuestionsHandler class
+ * @type {QuestionsHandler}
+ * @const
+ */
+const questionsHandler = new QuestionsHandler()
+
+/**
+ * Instance of Supervisor class
+ * @type {Supervisor}
+ * @const
+ */
 const supervisor = new Supervisor({
     url: 'https://demo.proctoring.online'
 })
 
+/**
+ * Function sets labels for questions and answers
+ * @param question
+ */
 const setLabelText = question => {
     document.querySelector(".testForm__question").innerHTML = question.text
     for (let i = 0; i < 4; i++){
@@ -15,14 +53,19 @@ const setLabelText = question => {
     }
 }
 
+/**
+ * Function shows test form
+ */
 const switchToTest = () => {
-    const main = document.querySelector("main")
     document.querySelector(".textInfo").style.display = "none"
     document.querySelector(".startTestButton").style.display = "none"
     const testForm = document.querySelector(".testForm")
     testForm.style.display = "flex"
 }
 
+/**
+ * Function hides test form and shows finish info
+ */
 const switchToFinish = () => {
     document.querySelector(".textInfo").style.display = "block"
     document.querySelector(".textInfo__header").innerHTML = "Finish"
@@ -30,6 +73,12 @@ const switchToFinish = () => {
     document.querySelector(".testForm").style.display = "none"
 }
 
+/**
+ * Listens to click event. Begins test with proctoring
+ *
+ * @type {HTMLElement} - Start test button.
+ * @listens startTestButton#click - Click event of button.
+ */
 startTestButton.addEventListener("click", async event => {
     event.preventDefault()
     try{
@@ -49,17 +98,14 @@ startTestButton.addEventListener("click", async event => {
     } catch(e) {
         console.log(e);
     }
-
-        // then(function() {
-        // switchToTest()
-        // questionsHandler.setQuestions(questions)
-        // setLabelText(questionsHandler.getNextQuestion())
-        // return supervisor.start();
-    // }) catch(function(err) {
-    //     alert(err.toString());
-    // });
 })
 
+/**
+ * Listens to click event. Sets previous question.
+ *
+ * @type {HTMLElement} - Back button.
+ * @listens testBackFormButton#click - Click event of button.
+ */
 testBackFormButton.addEventListener("click", async event => {
     event.preventDefault()
     let previousQuestion = questionsHandler.getPreviousQuestion()
@@ -73,6 +119,12 @@ testBackFormButton.addEventListener("click", async event => {
     setLabelText(previousQuestion)
 })
 
+/**
+ * Listens to click event. Sets next question.
+ *
+ * @type {HTMLElement} - Next button.
+ * @listens testNextFormButton#click - Click event of button.
+ */
 testNextFormButton.addEventListener("click", async event => {
     event.preventDefault()
     let nextQuestion = questionsHandler.getNextQuestion()
@@ -86,6 +138,12 @@ testNextFormButton.addEventListener("click", async event => {
     setLabelText(nextQuestion)
 })
 
+/**
+ * Listens to click event. Removes form and show finish info
+ *
+ * @type {HTMLElement} - Finish button.
+ * @listens testFinishFormButton#click - Click event of button.
+ */
 testFinishFormButton.addEventListener("click", async event => {
     event.preventDefault()
     try{
