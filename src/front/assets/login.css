@@ -33,8 +33,13 @@ body{
   justify-content: space-between;
   margin: 5px 0;
 }
+.loginForm__textInput{
+  width: 65%;
+}
 
 .loginForm__submitButton{
   width: 50%;
   margin: 5px auto 0;
 }
+
+

@@ -1,8 +1,21 @@
 import express from "express";
 import SessionResult from "../../db_models/sessionResultModel.js";
 
+/**
+ * Express router instance.
+ * @type {object}
+ * @const
+ */
 const apiReportRouter = express.Router()
 
+/**
+ * Route serving report paths. All results from proctoring comes here.
+ *
+ * @name post/api/report
+ * @function
+ * @param {string} path - Express path.
+ * @param {callback} middleware - Express middleware.
+ */
 apiReportRouter.post("/report", async (req, res) => {
     if (req.headers['x-api-key'] !== 'secret'){
         console.log("Wring api key")
